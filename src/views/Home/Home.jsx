@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { BsWallet2, BsFillPlayCircleFill } from "react-icons/bs";
+import { BsFillPlayCircleFill } from "react-icons/bs";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { Link } from 'react-router-dom';
 import styles from './Home.module.css';
+import Logo from '../../components/Logo/Logo'
 
 const Home = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -13,12 +15,7 @@ const Home = () => {
     return (
         <>
             <header className={styles.header}>
-                <div className={styles.logo}>
-                    <div className={styles.icon}>
-                        <BsWallet2 />
-                    </div>
-                    <p>GranaChat</p>
-                </div>
+                <Logo/>
                 <nav className={`${styles.nav} ${menuOpen ? styles.navActive : ''}`}>
                     <ul className={styles.lista}>
                         <li><a href="#">Funcionalidades</a></li>
@@ -28,7 +25,7 @@ const Home = () => {
                 </nav>
                 <div className={styles.buttons}>
                     <a href="#">Entrar</a>
-                    <a href="#">Começar Agora</a>
+                    <Link to="/login">Começar Agora</Link>
                 </div>
                 <button 
                     className={styles.hamburger}
@@ -43,7 +40,7 @@ const Home = () => {
                     <h1>Controle Suas Finanças <br/><span>Apenas Falando</span></h1>
                     <p>Transforme sua gestão financeira com IA. Registre gastos, ganhos e planeje seu futuro usando apenas comandos de voz ou texto em linguagem natural.</p>
                     <div className={styles.buttonshero}>
-                        <a href="#">Começar Grátis</a>
+                        <Link to="/login">Começar Grátis</Link>
                         <a href="#"><BsFillPlayCircleFill /> Ver Demonstração</a>
                     </div>
                 </div>

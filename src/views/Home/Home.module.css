@@ -5,28 +5,6 @@
     padding: 20px 50px;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    column-gap: 10px;
-    font-size: 2rem;
-    user-select: none;
-}
-
-.logo > p {
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-.icon {
-    background-color: #7311D4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    border-radius: 10px;
-}
-
 .lista {
     display: flex;
     list-style: none;
@@ -309,10 +287,6 @@
 
     .main {
         padding: 15px 20px;
-    }
-
-    .logo {
-        font-size: 1.5rem;
     }
 
     .left h1 {
