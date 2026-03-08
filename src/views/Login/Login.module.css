@@ -69,6 +69,8 @@
     align-self: center;
     column-gap: 3vw;
     margin-top: 15px;
+    flex-wrap: wrap;
+    row-gap: 2vh;
 }
 
 .buttons > a {
@@ -76,11 +78,13 @@
     color: #fff;
     display: flex;
     align-items: center;
+    justify-content: center;
     column-gap: 5px;
     background-color: hsl(270, 85%, 45%, 0.1);
     border: 1px solid hsl(270, 85%, 45%, 0.2);
     border-radius: 5px;
-    padding: 10px 50px;
+    padding: 10px 0px;
+    min-width: 180px;
 }
 
 .alter {
@@ -98,4 +102,10 @@
 .footer {
     color: #94A3B8;
     text-align: center;
+}
+
+@media (max-width: 500px) {
+    .help {
+        display: none;
+    }
 }
