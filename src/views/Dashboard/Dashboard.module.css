@@ -27,4 +27,5 @@
     padding: 50px;
     display: flex;
     column-gap: 3vw;
+    align-items: flex-start;
 }
