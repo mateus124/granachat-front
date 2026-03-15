@@ -25,4 +25,6 @@
 
 .dash {
     padding: 50px;
+    display: flex;
+    column-gap: 3vw;
 }
