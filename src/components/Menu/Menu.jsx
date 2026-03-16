@@ -8,28 +8,49 @@ import { NavLink } from 'react-router-dom';
 import styles from './Menu.module.css';
 
 const MENU_COLLAPSED_STORAGE_KEY = 'granachat-menu-collapsed';
+const COLLAPSE_BREAKPOINT = 1000;
 
 const Menu = () => {
     const [collapsed, setCollapsed] = useState(() => {
         const savedValue = localStorage.getItem(MENU_COLLAPSED_STORAGE_KEY);
         return savedValue === 'true';
     });
+    const [isCompactScreen, setIsCompactScreen] = useState(() => window.innerWidth <= COLLAPSE_BREAKPOINT);
+
+    const isMenuCollapsed = collapsed || isCompactScreen;
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia(`(max-width: ${COLLAPSE_BREAKPOINT}px)`);
+
+        const handleMediaChange = (event) => {
+            setIsCompactScreen(event.matches);
+        };
+
+        setIsCompactScreen(mediaQuery.matches);
+        mediaQuery.addEventListener('change', handleMediaChange);
+
+        return () => {
+            mediaQuery.removeEventListener('change', handleMediaChange);
+        };
+    }, []);
 
     useEffect(() => {
         localStorage.setItem(MENU_COLLAPSED_STORAGE_KEY, String(collapsed));
     }, [collapsed]);
 
     return (
-        <div className={`${styles.menu} ${collapsed ? styles.collapsed : ''}`}>
-            <button
-                type="button"
-                className={`${styles.close} ${collapsed ? styles.closeCollapsed : ''}`}
-                onClick={() => setCollapsed((prev) => !prev)}
-                aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'}
-            >
-                <FaArrowLeft size={22} />
-            </button>
-            <Logo compact={collapsed} />
+        <div className={`${styles.menu} ${isMenuCollapsed ? styles.collapsed : ''}`}>
+            {!isCompactScreen && (
+                <button
+                    type="button"
+                    className={`${styles.close} ${collapsed ? styles.closeCollapsed : ''}`}
+                    onClick={() => setCollapsed((prev) => !prev)}
+                    aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'}
+                >
+                    <FaArrowLeft size={22} />
+                </button>
+            )}
+            <Logo compact={isMenuCollapsed} />
             <nav className={styles.nav}>
                 <NavLink
                     to="/dashboard"
