@@ -2,6 +2,8 @@ import Menu from '../../components/Menu/Menu';
 import CardSalary from '../../components/CardSalary/CardSalary';
 import GainCard from '../../components/GainCard/GainCard';
 import TipIA from '../../components/TipIA/TipIA';
+import GraphicCard from '../../components/GraphCard/GraphCard';
+
 import styles from './Dashboard.module.css';
 import { IoMdNotifications } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
@@ -22,6 +24,9 @@ const Dashboard = () => {
                     <CardSalary/>
                     <GainCard/>
                     <TipIA/>
+                </div>
+                <div className='stats'>
+                    <GraphicCard/>
                 </div>
             </div>
         </main>
