@@ -3,7 +3,7 @@
 }
 
 .dashboard {
-    width: 80vw;
+    flex: 1;
     background-color: #FAFAFA;
     color: #0A0A0A;
 }
@@ -26,12 +26,22 @@
 .dash {
     padding: 50px;
     display: flex;
-    column-gap: 3vw;
+    gap: 3vw;
     align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .stats {
     padding: 0px 50px;
     display: flex;
-    column-gap: 3vw;
+    gap: 3vw;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1050px) {
+    .stats {
+        padding-bottom: 50px;
+    }
 }

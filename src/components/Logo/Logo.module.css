@@ -6,6 +6,10 @@
     user-select: none;
 }
 
+.compact {
+    justify-content: center;
+}
+
 .logo > p {
     font-weight: 600;
     letter-spacing: 1px;

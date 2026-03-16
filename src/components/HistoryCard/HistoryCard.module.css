@@ -32,3 +32,15 @@
     color: #7C3AED;
     font-weight: 600;
 }
+
+@media screen and (max-width: 1050px) {
+    .card {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .card {
+        width: 100%;
+    }
+}

@@ -12,6 +12,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    row-gap: 2vh;
 }
 
 .buttons {
@@ -60,5 +62,21 @@
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .card {
+        width: 80%;
+    }
+
+    .header {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .card {
+        width: 100%;
     }
 }
