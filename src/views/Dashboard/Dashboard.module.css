@@ -33,4 +33,5 @@
 .stats {
     padding: 0px 50px;
     display: flex;
+    column-gap: 3vw;
 }
