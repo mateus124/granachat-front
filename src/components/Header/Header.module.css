@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 25px 50px;
+    background-color: #fff;
+    border-bottom: 1px solid #F5F5F5;
+    justify-content: space-between;
+}
+
+.icons {
+    display: flex;
+    column-gap: 15px;
+    color: hsl(0, 0%, 4%, 0.6);
+}

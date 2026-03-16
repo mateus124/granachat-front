@@ -29,8 +29,24 @@ const barOptions = {
     vAxis: { gridlines: { color: "#f0f0f0" } },
 };
 
+const CHART_TYPE_STORAGE_KEY = "graphCardChartType";
+const VALID_CHART_TYPES = ["PieChart", "BarChart"];
+
 const GraphCard = () => {
-    const [chartType, setChartType] = useState("PieChart");
+    const [chartType, setChartType] = useState(() => {
+        const savedChartType = localStorage.getItem(CHART_TYPE_STORAGE_KEY);
+
+        if (VALID_CHART_TYPES.includes(savedChartType)) {
+            return savedChartType;
+        }
+
+        return "PieChart";
+    });
+
+    const handleChartTypeChange = (type) => {
+        setChartType(type);
+        localStorage.setItem(CHART_TYPE_STORAGE_KEY, type);
+    };
 
     return (
         <div className={styles.card}>
@@ -42,13 +58,13 @@ const GraphCard = () => {
                 <div className={styles.buttons}>
                     <button
                         className={chartType === "PieChart" ? styles.active : ""}
-                        onClick={() => setChartType("PieChart")}
+                        onClick={() => handleChartTypeChange("PieChart")}
                     >
                         <FaChartPie/> Pizza
                     </button>
                     <button
                         className={chartType === "BarChart" ? styles.active : ""}
-                        onClick={() => setChartType("BarChart")}
+                        onClick={() => handleChartTypeChange("BarChart")}
                     >
                         <IoStatsChartSharp/> Barras
                     </button>

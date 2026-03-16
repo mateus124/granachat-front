@@ -1,0 +1,16 @@
+.main {
+    display: flex;
+}
+
+.content {
+    flex: 1;
+    background-color: #FAFAFA;
+    color: #0A0A0A;
+}
+
+.chat {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+}

@@ -1,0 +1,9 @@
+.day {
+    background-color: #dfdfdf;
+    padding: 5px;
+    border-radius: 10px;
+    width: 100px;
+    text-align: center;
+    font-weight: 600;
+    align-self: center;
+}
