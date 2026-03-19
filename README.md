@@ -1,16 +1,140 @@
-# React + Vite
+# GranaChat Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interface web do GranaChat, um app de controle financeiro com foco em linguagem natural.
 
-Currently, two official plugins are available:
+Este repositório contém o frontend em React + Vite, responsável pelas telas de:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Home
+- Login e cadastro
+- Dashboard financeiro
+- Chat de interacao com a IA
+- Configuracoes
 
-## React Compiler
+O backend (API) esta neste repositorio:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- https://github.com/mateus124/granachat-backend
 
-## Expanding the ESLint configuration
+## Repositorios do projeto
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Frontend (este repo): https://github.com/mateus124/granachat-front
+- Backend (API): https://github.com/mateus124/granachat-backend
+
+## Stack
+
+- React 19
+- Vite 7
+- React Router DOM 7
+- CSS Modules
+
+## Pre-requisitos
+
+Para rodar localmente com a API:
+
+- Node.js 20+ (recomendado)
+- npm 10+
+- Python 3.11+ (para o backend)
+- Docker e Docker Compose (PostgreSQL do backend)
+
+## Como rodar localmente (frontend + backend)
+
+### 1) Subir o backend
+
+Em um terminal separado:
+
+```bash
+git clone https://github.com/mateus124/granachat-backend
+cd granachat-backend
+```
+
+Instale o `uv` e configure o ambiente:
+
+```bash
+pip install uv
+uv venv
+```
+
+Ative o ambiente virtual:
+
+Linux/Mac:
+
+```bash
+source .venv/bin/activate
+```
+
+Windows (PowerShell):
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+
+Instale dependencias e configure variaveis:
+
+```bash
+uv sync
+cp .env.example .env
+```
+
+No Windows PowerShell, voce tambem pode usar:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Suba o banco e rode a API:
+
+```bash
+docker compose up -d
+fastapi dev app/main.py
+```
+
+API disponivel em:
+
+- http://127.0.0.1:8000
+- Swagger: http://127.0.0.1:8000/docs
+
+### 2) Configurar e rodar o frontend
+
+Em outro terminal:
+
+```bash
+git clone https://github.com/mateus124/granachat-front
+cd granachat-front
+npm install
+```
+
+Crie um arquivo `.env` na raiz do frontend com:
+
+```env
+VITE_API_URL=http://127.0.0.1:8000
+```
+
+Inicie o projeto:
+
+```bash
+npm run dev
+```
+
+Frontend disponivel em:
+
+- http://localhost:5173
+
+## Scripts disponiveis
+
+- `npm run dev`: inicia o servidor de desenvolvimento
+- `npm run build`: gera build de producao
+- `npm run preview`: sobe preview do build
+- `npm run lint`: roda o ESLint
+
+## Estrutura principal
+
+```text
+src/
+	components/   # componentes reutilizaveis
+	views/        # paginas (Home, Login, Dashboard, etc)
+	App.jsx       # rotas da aplicacao
+```
+
+## Status atual
+
+- Fluxo de autenticacao integrado ao backend via `fetch`
+- Demais telas com estrutura visual pronta para evolucao de integracoes
