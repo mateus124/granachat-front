@@ -7,7 +7,7 @@ App de controle financeiro com foco em linguagem natural. Uma aplicação full-s
 ```
 granachat/
 ├── frontend/          # Interface web (React + Vite)
-├── backend/           # API FastAPI + PostgreSQL
+├── backend/           # API FastAPI + SQLite
 └── README.md
 ```
 
@@ -24,14 +24,13 @@ granachat/
 - FastAPI
 - uv (gerenciador de dependências)
 - SQLAlchemy
-- PostgreSQL (Docker)
+- SQLite (arquivo local)
 
 ## 📋 Pré-requisitos
 
 - Node.js 20+ (frontend)
 - npm 10+ ou yarn (frontend)
 - Python 3.11+ (backend)
-- Docker & Docker Compose (banco de dados)
 - uv (gerenciador Python)
 
 ## 🚀 Como rodar localmente
@@ -54,9 +53,6 @@ uv sync
 
 # Configurar .env (copiar de .env.example)
 cp .env.example .env
-
-# Iniciar banco de dados Docker
-docker-compose up -d
 
 # Rodar servidor
 fastapi dev app/main.py
@@ -112,7 +108,7 @@ backend/
 │   ├── models/             # Modelos SQLAlchemy
 │   └── schemas/            # Schemas Pydantic
 ├── pyproject.toml          # Dependências Python
-└── docker-compose.yml      # Configuração PostgreSQL
+└── docker-compose.yml      # (opcional/legado)
 ```
 
 ### Estrutura do Frontend
@@ -133,7 +129,7 @@ frontend/
 
 #### Backend (.env)
 ```
-DATABASE_URL=postgresql://user:password@localhost:5432/granachat
+DATABASE_URL=sqlite:///./granachat.sql
 SECRET_KEY=sua-chave-secreta-aqui
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30

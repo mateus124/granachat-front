@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../../components/Logo/Logo'
 import { GrCircleQuestion } from "react-icons/gr";
 import Inputbox from '../../components/Inputbox/Inputbox';
 import Button from '../../components/Button/Button';
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
+import { loginUser, registerUser } from '../../services/authService';
+import { saveAuthToken } from '../../services/authStorage';
 import styles from './Login.module.css';
-
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? '';
 
 const FORM_MODES = {
     login: {
@@ -37,7 +38,7 @@ const FORM_MODES = {
         endpoint: '/auth/register',
         fields: [
             {
-                name: 'name',
+                name: 'nome',
                 label: 'Nome Completo',
                 type: 'text',
                 place: 'Digite seu nome'
@@ -53,12 +54,19 @@ const FORM_MODES = {
                 label: 'Senha',
                 type: 'password',
                 place: 'Crie uma senha forte'
+            },
+            {
+                name: 'salario',
+                label: 'Salário',
+                type: 'number',
+                place: 'Ex: 1500'
             }
         ]
     }
 };
 
 const Login = () => {
+    const navigate = useNavigate();
     const [mode, setMode] = useState('login');
     const [feedback, setFeedback] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -73,30 +81,50 @@ const Login = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const formElement = event.currentTarget;
 
-        const formData = new FormData(event.currentTarget);
+        const formData = new FormData(formElement);
         const payload = Object.fromEntries(formData.entries());
+
+        if (!isLoginMode) {
+            payload.salario = Number(payload.salario);
+        }
 
         setIsSubmitting(true);
         setFeedback('Enviando...');
 
         try {
-            const response = await fetch(`${API_BASE_URL}${activeForm.endpoint}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            });
+            if (isLoginMode) {
+                const data = await loginUser(payload);
 
-            if (!response.ok) {
-                throw new Error('Não foi possível concluir a solicitação.');
+                if (data?.access_token) {
+                    saveAuthToken(data.access_token);
+                    setFeedback('Login realizado com sucesso. Redirecionando...');
+                    navigate('/dashboard');
+                } else {
+                    throw new Error('Resposta de login sem token JWT.');
+                }
+            } else {
+                const registerData = await registerUser(payload);
+                const registerMessage = registerData?.message || 'Usuário criado com sucesso.';
+                const loginPayload = {
+                    email: payload.email,
+                    password: payload.password,
+                };
+
+                const loginData = await loginUser(loginPayload);
+
+                if (loginData?.access_token) {
+                    saveAuthToken(loginData.access_token);
+                    setFeedback(`${registerMessage} Login realizado. Redirecionando...`);
+                    navigate('/dashboard');
+                } else {
+                    throw new Error('Usuário criado, mas o login automático falhou: token não retornado.');
+                }
             }
-
-            setFeedback(isLoginMode ? 'Login realizado com sucesso.' : 'Conta criada com sucesso.');
-            event.currentTarget.reset();
-        } catch {
-            setFeedback('Erro ao enviar. Verifique os dados e tente novamente.');
+        } catch (error) {
+            const message = error.response?.data?.detail || error.message || 'Erro ao enviar. Verifique os dados e tente novamente.';
+            setFeedback(message);
         } finally {
             setIsSubmitting(false);
         }

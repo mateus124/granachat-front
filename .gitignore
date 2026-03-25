@@ -50,6 +50,7 @@ dmypy.json
 *.db
 *.sqlite
 *.sqlite3
+*.sql
 
 # Editor directories and files
 .vscode/*
